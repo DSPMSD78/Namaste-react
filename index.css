@@ -26,12 +26,12 @@
   padding-top: 5px;
 }
 
-ul {
+.nav-items > ul {
   display: flex;
   list-style: none;
 }
 
-li {
+.nav-items > ul > li {
   margin: 5px;
 }
 
@@ -61,4 +61,40 @@ li {
 .display-image {
   width: 100%;
   height: 150px;
+}
+
+.filter {
+  position: relative;
+  margin: 10px 0;
+  left: -10px;
+}
+
+.filter-btn {
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.shimmer-container {
+  border: 1px solid black;
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.shimmer-card {
+  background-color: #f0f0f0;
+  width: 270px;
+  height: 300px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.login-btn {
+  margin: 0 20px;
+  cursor: pointer;
+}
+
+.search-box,
+.filter-btn {
+  margin-right: 10px;
 }

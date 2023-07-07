@@ -2,6 +2,7 @@ import RestaurantCard from "./RestaurantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
@@ -22,22 +23,27 @@ const Body = () => {
     setSearchRes(x?.data?.cards[2]?.data?.data?.cards);
   };
 
+  const status = useOnlineStatus();
+  if (status === false) {
+    return <h1>Check your Internet Connection!!!</h1>;
+  }
+
   return filteredRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
-      <div className="filter">
-        <div className="search">
+      <div className="flex justify-between">
+        <div className="m-3 p-3">
           <input
             type="text"
-            className="search-box"
+            className="border border-solid border-orange-200 mx-2 rounded-lg shadow-lg"
             value={searchText}
             onChange={(e) => {
               setSearchText(e.target.value);
             }}
           />
           <button
-            className="search-btn"
+            className="px-3 py-1 mx-2 bg-orange-200 rounded-lg"
             onClick={() => {
               const searchResult = filteredRestaurants.filter((res) =>
                 res.data.name.toLowerCase().includes(searchText.toLowerCase())
@@ -48,27 +54,29 @@ const Body = () => {
             Search
           </button>
         </div>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            const filteredList = filteredRestaurants.filter(
-              (x) => x.data.avgRating > 4
-            );
-            setSearchRes(filteredList);
-          }}
-        >
-          Top Rated Restaurants
-        </button>
-        <button
-          className="filter-btn"
-          onClick={() => {
-            setSearchRes(x?.data?.cards[2]?.data?.data?.cards);
-          }}
-        >
-          Back
-        </button>
+        <div className="m-3 p-3">
+          <button
+            className="px-3 py-1 mx-2 bg-orange-200 rounded-lg"
+            onClick={() => {
+              const filteredList = filteredRestaurants.filter(
+                (x) => x.data.avgRating > 4
+              );
+              setSearchRes(filteredList);
+            }}
+          >
+            Top Rated Restaurants
+          </button>
+          <button
+            className="px-3 py-1 mx-3 bg-orange-200 rounded-lg"
+            onClick={() => {
+              setSearchRes(x?.data?.cards[2]?.data?.data?.cards);
+            }}
+          >
+            Back
+          </button>
+        </div>
       </div>
-      <div className="res-container">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 justify-items-center">
         {searchRes.map((x) => (
           <Link key={x.data.id} to={"/restaurants/" + x.data.id}>
             <RestaurantCard resData={x} />

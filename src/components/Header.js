@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import logo from "../utils/Logo/Icon.jpg";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Header = () => {
   const [btnName, setBtnName] = useState("Login");
   const status = useOnlineStatus();
+
+  const { user } = useContext(UserContext);
   return (
     <div className="flex justify-between bg-orange-200">
       <div>
@@ -29,6 +32,7 @@ const Header = () => {
           <li className="m-4">
             <Link to={"/cart"}>Cart</Link>
           </li>
+          <li className="m-4">{user.name}</li>
           <button
             className="m-4"
             onClick={() => {

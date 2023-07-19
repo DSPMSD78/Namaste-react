@@ -1,19 +1,12 @@
-import { useState } from "react";
 import ItemList from "./ItemList";
 
-const RestaurantCategory = ({ data }) => {
-  const [showItems, setShowItems] = useState(false);
-
-  const Handler = () => {
-    setShowItems(!showItems);
-  };
-
+const RestaurantCategory = ({ data, x, y }) => {
   return (
     <div>
       <div className="bg-orange-50 shadow-lg my-4 p-3">
         <div
           className="flex justify-between cursor-pointer"
-          onClick={() => Handler()}
+          onClick={() => y()}
         >
           <span className="font-bold">
             {data.title} ({data.itemCards?.length})
@@ -21,7 +14,7 @@ const RestaurantCategory = ({ data }) => {
           <span>⬇ </span>
         </div>
 
-        {showItems && <ItemList items={data.itemCards} />}
+        {x && <ItemList items={data.itemCards} />}
       </div>
     </div>
   );

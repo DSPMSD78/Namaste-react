@@ -17,12 +17,16 @@ const Body = () => {
 
   const fetchData = async () => {
     const data = await fetch(
-      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.4473388&lng=78.3564887&page_type=DESKTOP_WEB_LISTING"
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&page_type=DESKTOP_WEB_LISTING"
     );
 
     x = await data.json();
-    setFilteredRestaurants(x?.data?.cards[2]?.data?.data?.cards);
-    setSearchRes(x?.data?.cards[2]?.data?.data?.cards);
+    setFilteredRestaurants(
+      x?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setSearchRes(
+      x?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
   };
 
   const status = useOnlineStatus();
@@ -70,7 +74,7 @@ const Body = () => {
             className="px-3 py-1 mx-2 bg-orange-200 rounded-lg"
             onClick={() => {
               const filteredList = filteredRestaurants.filter(
-                (x) => x.data.avgRating > 4
+                (x) => x.info.avgRating > 4
               );
               setSearchRes(filteredList);
             }}
@@ -80,7 +84,10 @@ const Body = () => {
           <button
             className="px-3 py-1 mx-3 bg-orange-200 rounded-lg"
             onClick={() => {
-              setSearchRes(x?.data?.cards[2]?.data?.data?.cards);
+              setSearchRes(
+                x?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+                  ?.restaurants
+              );
             }}
           >
             Back
@@ -89,11 +96,11 @@ const Body = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 justify-items-center">
         {searchRes.map((x) => (
-          <Link key={x.data.id} to={"/restaurants/" + x.data.id}>
-            {x.data.promoted ? (
-              <RestaurantCardWithLabel resData={x} />
+          <Link key={x.info.id} to={"/restaurants/" + x.info.id}>
+            {x?.info.promoted ? (
+              <RestaurantCardWithLabel resData={x?.info} />
             ) : (
-              <RestaurantCard resData={x} />
+              <RestaurantCard resData={x?.info} />
             )}
           </Link>
         ))}

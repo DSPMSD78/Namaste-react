@@ -1,8 +1,11 @@
 {
   "name": "namaste-react",
+  "homepage": "https://github.com/DSPMSD78/Namaste-react#readme",
   "version": "1.0.0",
   "description": "Namaste React",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -b master -d build",
     "start": "parcel index.html",
     "build": "parcel build index.html",
     "test": "jest"
@@ -19,7 +22,6 @@
   "bugs": {
     "url": "https://github.com/DSPMSD78/Namaste-react/issues"
   },
-  "homepage": "https://github.com/DSPMSD78/Namaste-react#readme",
   "devDependencies": {
     "parcel": "^2.9.3",
     "postcss": "^8.4.24",
@@ -31,6 +33,7 @@
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
     "@types/react-router-dom": "^5.3.3",
+    "gh-pages": "^6.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.1",
